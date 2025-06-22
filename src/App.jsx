@@ -9,7 +9,9 @@ function App() {
   const ask = async () => {
     if (!question.trim()) return;
     setLoading(true);
-    const res = await fetch("http://localhost:8000/ask", {
+    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8000";
+    const path = "/ask";
+    const res = await fetch(apiUrl + path, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -30,7 +32,10 @@ function App() {
     <div className="app">
       <h1>🧠 Chatbot – Tienda Alemana</h1>
 
-      <div className="chat-history" style={{ maxHeight: "400px", overflowY: "auto", marginBottom: "1rem" }}>
+      <div
+        className="chat-history"
+        style={{ maxHeight: "400px", overflowY: "auto", marginBottom: "1rem" }}
+      >
         {[...chatHistory].reverse().map((entry, index) => (
           <div key={index} className="chat-entry">
             <p>
